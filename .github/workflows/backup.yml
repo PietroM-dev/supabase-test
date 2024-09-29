@@ -16,7 +16,7 @@ jobs:
     env:
       supabase_db_url: ${{ secrets.SUPABASE_DB_URL }}   # For example: postgresql://postgres:[YOUR-PASSWORD]@db.<ref>.supabase.co:5432/postgres
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
       - uses: supabase/setup-cli@v1
@@ -25,21 +25,21 @@ jobs:
       - name: Backup roles
         run: supabase db dump --db-url "$supabase_db_url" -f roles.sql --role-only
       - name: Upload roles backup
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: roles-backup
           path: roles.sql
       - name: Backup schema
         run: supabase db dump --db-url "$supabase_db_url" -f schema.sql
       - name: Upload schema backup
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: schema-backup
           path: schema.sql
       - name: Backup data
         run: supabase db dump --db-url "$supabase_db_url" -f data.sql --data-only --use-copy
       - name: Upload data backup
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: data-backup
           path: data.sql
